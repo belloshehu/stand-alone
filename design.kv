@@ -1,0 +1,433 @@
+CustomScreenManager:
+    MainScreen:
+        id: main
+    AboutScreen:
+    SettingScreen:
+
+<MainScreen>:
+    name: 'main_screen'
+    size: root.width, root.height
+    canvas.before:
+        Color:
+            rgba: (0, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    CustomTabbedPannel:
+        Label:
+            pos_hint: {'x':0.5, 'y':0.35}
+            text: 'Solar Supply'
+            font_size: 32
+            outline_color: (0.5, 0.5, 0.5, 0.7)
+            outline_width: 2
+            color: (0, 1, 0, 0.5)
+    BoxLayout:
+        orientation: 'vertical'
+        CustomTabbedPannel:
+            Label:
+                pos_hint: {'x':0.5, 'y':0.35}
+                text: 'Hybrid power supply system'
+                font_size: 32
+                outline_color: (0.5, 0.5, 0.5, 0.7)
+                outline_width: 2
+                color: (0, 1, 0, 0.5)
+        BoxLayout:
+            size_hint: (1, 0.1)
+            GridLayout:
+                spacing: 5
+                cols: 3
+                rows: 1
+                canvas.before:
+                    Color:
+                        rgba: (1, 1, 1, 0.8)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                BoxLayout:
+                    canvas.before:
+                        Color:
+                            rgba: (0.23, 0, 0.88, 1)
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        text: 'Voltage'
+                    Label:
+                        text: '0.00'
+                BoxLayout:
+                    canvas.before:
+                        Color:
+                            rgba: (0.23, 0, 0.88, 1)
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        text: 'Current'
+                    Label:
+                        text: '0.00'
+                BoxLayout:
+                    canvas.before:
+                        Color:
+                            rgba: (0.23, 0, 0.88, 1)
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        text: 'Temperature'
+                    Label:
+                        text: '0.00'
+
+        BoxLayout:
+            orientation: 'vertical'
+            size: root.width, root.height
+            BoxLayout:
+                size_hint: (1, 0.5)
+                padding: 10
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 1)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                BoxLayout:
+                    background_color: (1, 1, 1, 1)
+                    orientation: 'vertical'
+                    size_hint: (0.2 ,1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        text: 'Description'
+                        font_size: 16
+                        bold: True
+                        color: (0, 0, 1, 1)
+                        id: description
+                    BoxLayout:
+                BoxLayout:
+                    size_hint: (0.8 ,1)
+                    Graph:
+                        id: voltage_graph
+                        xlabel: 'Time(s)'
+                        ylabel: 'Voltage(V), Current(I) & Temperature'
+                        xmin: 0
+                        xmax: 60
+                        ymin: 0
+                        ymax: 250
+                        x_ticks_minor: 1
+                        x_ticks_major: 5
+                        y_ticks_minor: 1
+                        y_ticks_major: 20
+                        x_grid: True
+                        y_grid: True
+                        x_grid_label: True
+                        y_grid_label: True
+                        # tick_color: (1, 0, 0, 1)
+
+<BatteryCustomBoxLayout@BoxLayout>
+    padding: 10
+    spacing: 20
+    orientation: 'vertical'
+    #size_hint_y: None
+    #height: '430dp'
+    #pos_hint: {'center_x':.5, 'y':0.1}
+    background_color: (50/255, 165/255 ,40/255 ,0.5)
+    image_source: ''
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    title: 'title'
+    plant_type: ''
+    BoxLayout:
+        size_hint: (1, 0.2)
+        #height: '70dp'
+        canvas.before:
+            Color:
+                rgba: (0, 0, 0, 0.5)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: root.title
+            size_hint_y: None
+            height: '30dp'
+            text_align: 'left'
+            bold: True
+            font_size: 24
+            outline_color: (0.5, 0.5, 0.5, 1)
+            outline_width: 1
+            #pos_hint: {'x':0, 'y':0.5}
+
+    Image:
+        size_hint: (1, 0.5)
+        source: root.image_source
+        allow_stretch: True
+        keep_ratio: False
+        size_hint: (1, 0.5)
+    GridLayout:
+        cols: 3
+        canvas.before:
+            Color:
+                rgba: (0, 0, 0, 0.5)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                #size_hint: (1, 0.1)
+        Label:
+            text: 'Capacity:'
+        Label:
+            text: '7.2AH'
+            bold: True
+            color: (0, 1, 0)
+        Label:
+            text: ' @ 12V'
+            bold: True
+            color: (0, 1, 0)
+    BoxLayout:
+        size_hint: (1, 0.2)
+
+<CustomBoxLayout@BoxLayout>
+    padding: 10
+    spacing: 20
+    orientation: 'vertical'
+    background_color: (50/255, 165/255 ,40/255 ,0.5)
+    image_source: ''
+    voltage: '0.000'
+    status: 'OFF'
+    dot_color: (1, 0, 0, 1)
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle: 
+            pos: self.pos
+            size: self.size
+    title: 'title'
+    plant_type: ''
+    BoxLayout:
+        size_hint: (1, 0.15)
+        #height: '70dp'
+        canvas.before:
+            Color:
+                rgba: (0, 0, 0, 0.5)
+            Rectangle: 
+                pos: self.pos
+                size: self.size
+        Label:
+            text: root.title
+            size_hint_y: None
+            height: '30dp'
+            text_align: 'left'
+            bold: True
+            font_size: 24
+            outline_color: (0.5, 0.5, 0.5, 1)
+            outline_width: 1
+            #pos_hint: {'x':0, 'y':0.5}
+        Dot:
+            id:dot_id
+            background_color: root.dot_color
+    Image: 
+        size_hint: (1, 0.45)
+        source: root.image_source
+        allow_stretch: True
+        keep_ratio: False
+        size_hint: (1, 0.5)
+
+    GridLayout:
+        size_hint: (1, 0.45)
+        padding: (0, 20, 0, 0)
+        cols: 1
+        canvas.before:
+            Color:
+                rgba: (0, 0, 0, 0.5)
+            Rectangle: 
+                pos: self.pos
+                size: self.size
+                #size_hint: (1, 0.1)
+        Label:
+            size_hint: (1, 0.2)
+            text: 'Parameters'
+            pos_hint: {'center_x': 0.2}
+            color: (0, 0, 0)
+            bold: True
+        Widget:
+            size_hint: (1, 0.1)
+            canvas.before:
+                Color:
+                    rgba: (1, 1, 1, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.width, 2
+        GridLayout:
+            canvas.before:
+                Color:
+                    rgba: (0, 0, 0, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            cols: 2
+            Label:
+                text: 'Voltage(V):'
+            Label:
+                text: root.voltage
+                bold: True
+                color: (0, 1, 0, 0.7)
+
+            Label:
+                text: 'Status:       '
+                text_align: 'left'
+            Label:
+                text: root.status
+                text_align: 'left'
+                color: (0, 1, 0, 0.7)
+
+# put custom load widget here:
+<CustomLoadBoxLayout@BoxLayout>
+    critical_load_text: 'ON'
+    non_critical_load_text: 'OFF'
+    padding: 10
+    spacing: 20
+    orientation: 'vertical'
+    background_color: (50/255, 165/255 ,40/255 ,0.5)
+    image_source: ''
+    dot_color: (1, 0, 0, 1)
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    title: 'title'
+    plant_type: ''
+    BoxLayout:
+        size_hint: (1, 0.15)
+        #height: '70dp'
+        canvas.before:
+            Color:
+                rgba: (0, 0, 0, 0.5)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: root.title
+            size_hint_y: None
+            height: '30dp'
+            text_align: 'left'
+            bold: True
+            font_size: 24
+            outline_color: (0.5, 0.5, 0.5, 1)
+            outline_width: 1
+            #pos_hint: {'x':0, 'y':0.5}
+        Dot:
+            id:dot_id
+            background_color: root.dot_color
+    Image:
+        size_hint: (1, 0.5)
+        source: root.image_source
+        allow_stretch: True
+        keep_ratio: False
+        size_hint: (1, 0.5)
+
+    GridLayout:
+        size_hint: (1, 0.45)
+        padding: (0, 20, 0, 0)
+        cols: 1
+        canvas.before:
+            Color:
+                rgba: (0, 0, 0, 0.5)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                #size_hint: (1, 0.1)
+        Label:
+            text: 'Load Status'
+            pos_hint: {'center_x': 0.2}
+            color: (0, 0, 0)
+            bold: True
+            size_hint: (1, 0.1)
+        Widget:
+            size_hint: (1, 0.1)
+            canvas.before:
+                Color:
+                    rgba: (1, 1, 1, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.width, 2
+        GridLayout:
+            canvas.before:
+                Color:
+                    rgba: (0, 0, 0, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    #size_hint: (1, 0.1)
+            cols: 2
+            Label:
+                text: 'Critical       '
+                text_align: 'left'
+            Label:
+                text: root.critical_load_text
+                id: critical_load
+                color: (0, 1, 0, 0.7)
+            Label:
+                text: 'Non Critical'
+                text_align: 'left'
+            Label:
+                text: root.non_critical_load_text
+                id: non_critical_load
+                color: (0, 1, 0, 0.7)
+
+<CustomToggleButton@ToggleButton>
+    size_hint_y: None
+    height: '30dp'
+    text: 'ON'
+    state: 'normal'
+    background_color: (0, 0, 0, 0)
+    custom_background_color: (1, 0, 0, 0.5)
+    canvas.before:
+        Color:
+            rgba: self.custom_background_color
+        RoundedRectangle: 
+            pos: self.pos
+            size: self.size
+            radius: [20]
+    
+<Dot@Label>
+    size_hint: (None, None)
+    size: ('50dp', '50dp')
+    pos_hint: {'center_x': 0.9, 'y':0.6}
+    background_color: (1, 0, 0, 1)
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        RoundedRectangle: 
+            pos: self.pos
+            size: self.width/2, self.height/2
+            radius: [100]
+
+<GraphBox@BoxLayout>
+    id: ''
+    x_label: 'X'
+    y_label: 'Y'
+    Graph:
+        id: root.id
+        xlabel: root.x_label
+        ylabel: root.y_label
+        xmin: 0
+        xmax: 60
+        ymin: 0
+        ymax: 250
+        x_ticks_minor: 1
+        x_ticks_major: 5
+        y_ticks_minor: 1
+        y_ticks_major: 20
+        x_grid: True
+        y_grid: True
+        x_grid_label: True
+        y_grid_label: True
+        # tick_color: (1, 0, 0, 1)

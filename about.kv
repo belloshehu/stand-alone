@@ -1,0 +1,24 @@
+<AboutScreen>
+    name: 'about_screen'
+    size: root.width, root.height
+    BoxLayout:
+        #size: root.width, root.height
+        orientation: 'vertical'
+        CustomTabbedPannel:
+        Label: 
+            text: 'What is this software about?'
+            font_size: 32
+            bold: True
+            color: (0.3, 1, 0.4, 0.5)
+            size_hint_y: None
+            height: '100dp'
+        Label:
+            pos_hint: {'center_x': 0.5 , 'y':0.8}
+            color: 'black'
+            text: '''This software is an integral part of the Hybrid Power Supply system,  \n prototyping how solar and wind power supply can be integrated into main supply to increase reliability.'''
+            halign: 'center'
+        Label:
+            text: 'Designed by Engr. Abubakar Edicha'
+            font_size: 26
+            color: (0.04, 0.7, 0.4, 0.9)
+        

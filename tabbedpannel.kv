@@ -1,0 +1,26 @@
+<CustomTabbedPannel@TabbedPanel>
+    tab_pos: 'top_left'
+    size_hint_y: None
+    height: '70dp'
+    do_default_tab: False
+    canvas.before:
+        Color:
+            rgba: (0, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    TabbedPanelItem:
+        text: 'dashboard'
+        on_press:  app.root.current = app.root.select_tab_item(self, self.text)
+    TabbedPanelItem:
+        text: 'about'
+        on_press:  
+            app.root.current = app.root.select_tab_item(self, self.text)
+    TabbedPanelItem:
+        text: 'settings'
+        on_release:  app.root.current = app.root.select_tab_item(self, self.text)
+    TabbedPanelItem:
+        text: 'help'
+        on_release:  
+            app.root.current = app.root.select_tab_item(self, self.text)
+            #root.manager.transition.direction = 'up'

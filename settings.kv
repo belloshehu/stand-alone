@@ -1,0 +1,47 @@
+<SettingScreen>
+    name: 'settings_screen'
+    size: root.width, root.height
+    BoxLayout:
+        #size: root.width, root.height
+        orientation: 'vertical'
+        CustomTabbedPannel:
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 40
+            BoxLayout:
+                size_hint: (1, 0.2)
+                Label:
+                    text: 'Selected port:'
+                    color: (0 ,0 ,0)
+                    font_size: 26
+                    size_hint: (0.5, 1)
+                Spinner:
+                    text: 'available ports'
+                    id: spinner
+                    values: []
+                    size_hint: (0.2, 0.2)
+                    bg_color: (0.1, 0.5, 1)
+                    h_align: 'left'
+                    on_text: root.get_selected_port(self.text)
+                    background_color: 'green'
+                    radius: [50]
+                Label:
+                    id: status
+                    text: 'not connected'
+                    color: (1, 0, 0)
+                    text_align: 'left'
+                    font_size: 20
+                    bold: True
+                    size_hint: (0.3, 1)
+            BoxLayout:
+                Button:
+                    text: 'Refresh'
+                    on_press: root.refresh_port()
+                    size_hint: (1, 0.2)
+                    color: (0, 0.8, 0.1)
+                    font_size: 18
+                    bold: True
+            BoxLayout:
+
+
+
