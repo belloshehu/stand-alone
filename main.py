@@ -77,36 +77,49 @@ class CustomScreenManager(ScreenManager):
     def get_data(self, dt):
         # obtain voltage, current values through serial interface
         parameter = serial_interface.get_parameters()
-        parameter = 'a10l'
         if parameter:
-            parameter = parameter.strip()
-            if parameter.startswith('c'):  # it is current if it starts with c
-                self.current_parameter = float(parameter[1:])  # extract only the current value
-                print(self.current_parameter)
-            elif parameter.startswith('v'):
+            parameter = parameter.decode()
+            # parameter = parameter.strip()
+            print(parameter)
+            if parameter.startswith('v') and parameter[1:] != '':
                 self.solar_voltage = float(parameter[1:])   # extract only the voltage value
                 self.time_count += 5
+                self.ids.main.ids.voltage.text = parameter[1:]
                 self.voltage_graph_cordinates_points.append((self.time_count % self.time_span, self.solar_voltage))
                 solar_points = MeshLinePlot(color=[0, 1, 0, 1])
                 solar_points.points = self.voltage_graph_cordinates_points
                 self.ids.main.ids.graph.add_plot(solar_points)
-                self.add_points(self.voltage_graph_cordinates_points, self.time_count % self.time_span,
-                                self.solar_voltage, 59)
-            elif parameter.startswith('c'):  # main voltage
+                self.add_points(
+                    self.voltage_graph_cordinates_points,
+                    self.time_count % self.time_span,
+                    self.solar_voltage,
+                    59
+                )
+            elif parameter.startswith('c') and parameter[1:] != '':  # it is current if it starts with c
                 self.current_parameter = float(parameter[1:])
-                self.ids.main.ids.voltage.voltage = parameter[1:]
+                self.ids.main.ids.current.text = parameter[1:]
                 self.time_count += 1
                 main_points = MeshLinePlot(color=[1, 0, 1, 1])
-                self.add_points(self.current_graph_cordinates_points, self.time_count % self.time_span, self.current_parameter, 59)
+                self.add_points(
+                    self.current_graph_cordinates_points,
+                    self.time_count % self.time_span,
+                    self.current_parameter,
+                    59
+                )
                 main_points.points = self.voltage_graph_cordinates_points
                 self.ids.main.ids.graph.add_plot(main_points)
                 print(self.time_count % self.time_span) 
-            elif parameter.startswith('t'):
-                self.temperature = parameter[1:]
-                self.ids.main.ids.main_voltage.voltage = parameter[1:]
+            elif parameter.startswith('t') and parameter[1:] != '':
+                self.temperature = float(parameter[1:])
+                self.ids.main.ids.temperature.text = parameter[1:]
                 temperature_points = MeshLinePlot(color=[0, 0, 1, 1])
+                self.add_points(
+                    self.temperature_graph_cordinate_points,
+                    self.time_count % self.time_span,
+                    self.temperature,
+                    65
+                )
                 temperature_points.points = self.temperature_graph_cordinate_points
-                self.add_points(self, self.temperature_graph_cordinate_points, self.time_count % self.time_span, self.temperature, 59)
                 self.ids.main.ids.graph.add_plot(temperature_points)
             print('Nothing received yet from Arduino')
 

@@ -51,9 +51,10 @@ CustomScreenManager:
                             pos: self.pos
                             size: self.size
                     Label:
-                        text: 'Voltage'
+                        text: 'Voltage(V)'
                     Label:
                         text: '0.00'
+                        id: voltage
                 BoxLayout:
                     canvas.before:
                         Color:
@@ -62,9 +63,10 @@ CustomScreenManager:
                             pos: self.pos
                             size: self.size
                     Label:
-                        text: 'Current'
+                        text: 'Current(A)'
                     Label:
                         text: '0.00'
+                        id:current
                 BoxLayout:
                     canvas.before:
                         Color:
@@ -73,9 +75,10 @@ CustomScreenManager:
                             pos: self.pos
                             size: self.size
                     Label:
-                        text: 'Temperature'
+                        text: 'Temperature(celsius)'
                     Label:
                         text: '0.00'
+                        id: temperature
 
         BoxLayout:
             orientation: 'vertical'
@@ -110,7 +113,7 @@ CustomScreenManager:
                 BoxLayout:
                     size_hint: (0.8 ,1)
                     Graph:
-                        id: voltage_graph
+                        id: graph
                         xlabel: 'Time(s)'
                         ylabel: 'Voltage(V), Current(I) & Temperature'
                         xmin: 0
