@@ -77,11 +77,11 @@ class CustomScreenManager(ScreenManager):
     def get_data(self, dt):
         # obtain voltage, current values through serial interface
         parameter = serial_interface.get_parameters()
+        parameter = 'v10.0'
         if parameter:
-            parameter = parameter.decode()
-            # parameter = parameter.strip()
-            print(parameter)
-            if parameter.startswith('v') and parameter[1:] != '':
+            # parameter = parameter.decode()
+            parameter = parameter.strip()
+            if parameter.startswith('v') and len(parameter) == 5:
                 self.solar_voltage = float(parameter[1:])   # extract only the voltage value
                 self.time_count += 5
                 self.ids.main.ids.voltage.text = parameter[1:]
@@ -95,7 +95,7 @@ class CustomScreenManager(ScreenManager):
                     self.solar_voltage,
                     59
                 )
-            elif parameter.startswith('c') and parameter[1:] != '':  # it is current if it starts with c
+            elif parameter.startswith('c') and len(parameter) == 5:  # it is current if it starts with c
                 self.current_parameter = float(parameter[1:])
                 self.ids.main.ids.current.text = parameter[1:]
                 self.time_count += 1
@@ -106,10 +106,10 @@ class CustomScreenManager(ScreenManager):
                     self.current_parameter,
                     59
                 )
-                main_points.points = self.voltage_graph_cordinates_points
+                main_points.points = self.current_graph_cordinates_points
                 self.ids.main.ids.graph.add_plot(main_points)
                 print(self.time_count % self.time_span) 
-            elif parameter.startswith('t') and parameter[1:] != '':
+            elif parameter.startswith('t') and len(parameter) == 3:
                 self.temperature = float(parameter[1:])
                 self.ids.main.ids.temperature.text = parameter[1:]
                 temperature_points = MeshLinePlot(color=[0, 0, 1, 1])
