@@ -36,7 +36,7 @@ CustomScreenManager:
             GridLayout:
                 spacing: 5
                 cols: 3
-                rows: 1
+                rows: 2
                 canvas.before:
                     Color:
                         rgba: (1, 1, 1, 0.8)
@@ -44,91 +44,134 @@ CustomScreenManager:
                         pos: self.pos
                         size: self.size
                 BoxLayout:
-                    canvas.before:
-                        Color:
-                            rgba: (0.23, 0, 0.88, 1)
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
-                    Label:
-                        text: 'Voltage(V)'
-                    Label:
-                        text: '0.00'
-                        id: voltage
-                BoxLayout:
-                    canvas.before:
-                        Color:
-                            rgba: (0.23, 0, 0.88, 1)
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
-                    Label:
-                        text: 'Current(A)'
-                    Label:
-                        text: '0.00'
-                        id:current
-                BoxLayout:
-                    canvas.before:
-                        Color:
-                            rgba: (0.23, 0, 0.88, 1)
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
-                    Label:
-                        text: 'Temperature(celsius)'
-                    Label:
-                        text: '0.00'
-                        id: temperature
-
-        BoxLayout:
-            orientation: 'vertical'
-            size: root.width, root.height
-            BoxLayout:
-                size_hint: (1, 0.5)
-                padding: 10
-                spacing: 10
-                canvas.before:
-                    Color:
-                        rgba: (0, 0, 0, 1)
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-                BoxLayout:
-                    background_color: (1, 1, 1, 1)
                     orientation: 'vertical'
-                    size_hint: (0.2 ,1)
                     canvas.before:
                         Color:
-                            rgba: self.background_color
+                            rgba: (0.23, 0, 0.88, 1)
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                    Label:
-                        text: 'Description'
-                        font_size: 16
-                        bold: True
-                        color: (0, 0, 1, 1)
-                        id: description
+                    GridLayout:
+                        size_hint: (1, 0.2)
+                        cols: 3
+                        row: 1
+                        Label:
+                            text: 'Voltage(V)'
+                        Label:
+                            text: '0.00'
+                            id: voltage
                     BoxLayout:
+                        size_hint: (1 ,0.8)
+                        canvas.before:
+                            Color:
+                                rgba: (0, 0, 0, 1)
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        Graph:
+                            id: graph
+                            xlabel: 'Time(s)'
+                            ylabel: 'Voltage(V)'
+                            xmin: 0
+                            xmax: 60
+                            ymin: 0
+                            ymax: 250
+                            x_ticks_minor: 1
+                            x_ticks_major: 5
+                            y_ticks_minor: 1
+                            y_ticks_major: 20
+                            x_grid: True
+                            y_grid: True
+                            x_grid_label: True
+                            y_grid_label: True
+                            # tick_color: (1, 0, 0, 1)
+
                 BoxLayout:
-                    size_hint: (0.8 ,1)
-                    Graph:
-                        id: graph
-                        xlabel: 'Time(s)'
-                        ylabel: 'Voltage(V), Current(I) & Temperature'
-                        xmin: 0
-                        xmax: 60
-                        ymin: 0
-                        ymax: 250
-                        x_ticks_minor: 1
-                        x_ticks_major: 5
-                        y_ticks_minor: 1
-                        y_ticks_major: 20
-                        x_grid: True
-                        y_grid: True
-                        x_grid_label: True
-                        y_grid_label: True
-                        # tick_color: (1, 0, 0, 1)
+                    orientation: 'vertical'
+                    canvas.before:
+                        Color:
+                            rgba: (0.23, 0, 0.88, 1)
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    GridLayout:
+                        size_hint: (1, 0.2)
+                        cols: 2
+                        row: 1
+                        Label:
+                            text: 'Current(A)'
+                        Label:
+                            text: '0.00'
+                            id:current
+                    BoxLayout:
+                        size_hint: (1 ,0.8)
+                        canvas.before:
+                            Color:
+                                rgba: (0, 0, 0, 1)
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        Graph:
+                            id: graph
+                            xlabel: 'Time(s)'
+                            ylabel: 'Current(I)'
+                            xmin: 0
+                            xmax: 60
+                            ymin: 0
+                            ymax: 10
+                            x_ticks_minor: 1
+                            x_ticks_major: 5
+                            y_ticks_minor: 1
+                            y_ticks_major: 0.5
+                            x_grid: True
+                            y_grid: True
+                            x_grid_label: True
+                            y_grid_label: True
+                            # tick_color: (1, 0, 0, 1)
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    canvas.before:
+                        Color:
+                            rgba: (0.23, 0, 0.88, 1)
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    GridLayout:
+                        size_hint: (1, 0.2)
+                        cols: 2
+                        rows: 1
+                        Label:
+                            text: 'Temperature(celsius)'
+                        Label:
+                            text: '0.00'
+                            id: temperature
+                    BoxLayout:
+                        size_hint: (1 , 0.8)
+                        canvas.before:
+                            Color:
+                                rgba: (0, 0, 0, 1)
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        Graph:
+                            id: graph
+                            xlabel: 'Time(s)'
+                            ylabel: 'Temperature(C)'
+                            xmin: 0
+                            xmax: 60
+                            ymin: 0
+                            ymax: 100
+                            x_ticks_minor: 1
+                            x_ticks_major: 5
+                            y_ticks_minor: 1
+                            y_ticks_major: 5
+                            x_grid: True
+                            y_grid: True
+                            x_grid_label: True
+                            y_grid_label: True
+                            # tick_color: (1, 0, 0, 1)
+
 
 <BatteryCustomBoxLayout@BoxLayout>
     padding: 10

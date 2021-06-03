@@ -77,9 +77,8 @@ class CustomScreenManager(ScreenManager):
     def get_data(self, dt):
         # obtain voltage, current values through serial interface
         parameter = serial_interface.get_parameters()
-        parameter = 'v10.0'
         if parameter:
-            # parameter = parameter.decode()
+            parameter = parameter.decode()
             parameter = parameter.strip()
             if parameter.startswith('v') and len(parameter) == 5:
                 self.solar_voltage = float(parameter[1:])   # extract only the voltage value
